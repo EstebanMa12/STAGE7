@@ -14,7 +14,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path
 from InstagramClone.views import views as local_views
 
@@ -29,4 +31,13 @@ urlpatterns = [
     path('sorted/', local_views.sorted),
     path('hi/<str:name>/<int:age>/', local_views.say_hi),
     path('posts/', posts_views.list_posts),
+   
 ]
+
+if settings.DEBUG:
+     # La función static() se utiliza para añadir rutas URL para servir archivos estáticos durante el desarrollo. Los archivos estáticos son todos tus archivos CSS y JavaScript, imágenes, y cualquier otro archivo que no sea Python que necesites para tu aplicación web
+    # En este caso, static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) está añadiendo rutas para servir archivos de medios durante el desarrollo. Los archivos de medios son, por ejemplo, las imágenes subidas por los usuarios de tu aplicación web.
+
+    # settings.MEDIA_URL es la URL que Django usará para referirse a los archivos de medios. settings.MEDIA_ROOT es la ubicación absoluta del directorio en tu sistema de archivos donde Django almacenará los archivos de medios.
+    urlpatterns +=static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    
