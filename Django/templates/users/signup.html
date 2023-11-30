@@ -5,16 +5,21 @@
 {% endblock %}
 
 {% block container%}
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+    {%endif%}
     <form action="{% url 'signup' %}">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" name="username" required = "true">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" name="password" required = "true">
+            <input type="password" class="form-control" placeholder="Password" name="passwd" required = "true">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" required = "true">
+            <input type="password" class="form-control" placeholder="Confirm Password" name="passwd_confirmation" required = "true">
         </div>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="First Name" name="first_name" required = "true">
@@ -25,6 +30,6 @@
         <div class="form-group">
             <input type="email" class="form-control" placeholder="Email address" name="email" required = "true">
         </div>
-        <button class="btn btn-primary btn-block mt-5" type="submit">Register!!</button>
+        <button class="btn btn-primary btn-block mt-5" type="submit">Register!! </button>
     </form>
 {% endblock %}
