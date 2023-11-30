@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from users.models import Profile
 
+# Forms 
+from users.forms import ProfileForm
+
+
 # Create your views here.
 def login_view(request):
     """Login view"""
@@ -52,7 +56,13 @@ def signup_view(request):
 
 def update_profile(request):
     """Update a user's profile view."""
-    profile = request.user.profile
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('update_profile')
+        else:
+            form = ProfileForm()
     
     return render(request= request, 
                 template_name = 'users/update_profile.html',

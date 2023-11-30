@@ -9,8 +9,8 @@
         <div class="alert alert-danger" role="alert">
             {{error}}
         </div>
-    {%endif%}
-    <form action="{% url 'signup' %}">
+    {% endif %}
+    <form action="{% url 'signup' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" name="username" required = "true">

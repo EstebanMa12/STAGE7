@@ -3,6 +3,8 @@
 # Django
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 class ProfileCompletionMiddleware:
@@ -19,10 +21,15 @@ class ProfileCompletionMiddleware:
     def __call__(self, request):
         """Code to be executed for each request before the view is called."""
         if not request.user.is_anonymous:
-            profile = request.user.profile
-            if not profile.picture or not profile.biography:
-                if request.path not in [reverse('update_profile'), reverse('logout')]:
-                    return redirect('update_profile')
+            if not request.user.is_staff:
+                try:
+                    profile = request.user.profile
+                except ObjectDoesNotExist:
+                    # Handle the case where the profile does not exist
+                    profile = None
+                if profile is None or not profile.picture or not profile.biography:
+                    if request.path not in [reverse('update_profile'), reverse('logout')]:
+                        return redirect('update_profile')
 
         response = self.get_response(request)
         return response
