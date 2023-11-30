@@ -49,3 +49,15 @@ def signup_view(request):
         
         return redirect('login')
     return render(request, 'users/signup.html')
+
+def update_profile(request):
+    """Update a user's profile view."""
+    profile = request.user.profile
+    
+    return render(request= request, 
+                template_name = 'users/update_profile.html',
+                context = {
+                    'profile': profile,
+                    'user': request.user
+                    }
+                )
