@@ -4,7 +4,7 @@ from django.contrib import admin
 from users.models import Profile
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from posts.models import Post
+
 
 # Register your models here.
 #admin.site.register(Profile)
@@ -61,38 +61,8 @@ class UserAdmin(BaseUserAdmin):
         'is_active',
         'is_staff'
     )
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    """Post admin"""
-    list_display = ('pk','title','photo','created','modified')
-    list_display_links = ('pk','title')
-    search_fields = (
-        'title',
-        'user__username',
-        'user__email',
-        'profile__user__username',
-        'profile__user__email'
-    )
-    list_filter = (
-        'created',
-        'modified'
-    )
-    fieldsets = (
-        ('Post',{
-            'fields':(
-                ('title','photo'),
-            )
-        }),
-        ('Metadata',{
-            'fields':(
-                ('created','modified'),
-            )
-        })
-    )
-    readonly_fields = ('created','modified')
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
-admin.site.unregister(Post)
-admin.site.register(Post, PostAdmin)
 
