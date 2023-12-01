@@ -12,7 +12,7 @@ urlpatterns = [
     # Post
     path(
         route='profile/<str:username>/',
-        view= TemplateView.as_view(template_name = 'users/detail'),
+        view= TemplateView.as_view(template_name = 'users/detail.html'),
         name='detail'),
     
     # Management
