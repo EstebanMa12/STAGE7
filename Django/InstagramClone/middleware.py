@@ -28,8 +28,9 @@ class ProfileCompletionMiddleware:
                     # Handle the case where the profile does not exist
                     profile = None
                 if profile is None or not profile.picture or not profile.biography:
-                    if request.path not in [reverse('update_profile'), reverse('logout')]:
-                        return redirect('update_profile')
+                    if request.path not in [reverse('users:update_profile'), 
+                                            reverse('users:logout')]:
+                        return redirect('users:update_profile')
 
         response = self.get_response(request)
         return response
